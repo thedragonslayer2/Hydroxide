@@ -385,6 +385,7 @@ local function createArg(instance, index, value)
 end
 
 function ArgsLog.new(log, callInfo)
+    print(callInfo.args)
     local instance = Assets.CallPod:Clone()
     local args = callInfo.args
 
@@ -404,9 +405,7 @@ function ArgsLog.new(log, callInfo)
         end
     end
 
-    --button:SetRightCallback(function()
-    button:SetCallback(function()
-        print"SetCallback!"
+    button:SetRightCallback(function()
         selected.args = callInfo.args
         selected.callingScript = callInfo.script
         selected.func = callInfo.func
