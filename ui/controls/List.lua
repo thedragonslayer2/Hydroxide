@@ -110,14 +110,13 @@ end
 function List.bindContextMenu(list, contextMenu)
     if not list.BoundContextMenu then
         local function showContextMenu()
-            print"selected"
             if not list.Selected then
                 contextMenu:Show()
             end
         end
 
         list.Instance.ChildAdded:Connect(function(instance)
-            instance.MouseButton1Click:Connect(showContextMenu)
+            instance.MouseButton2Click:Connect(showContextMenu)
         end)
 
         list.BoundContextMenu = contextMenu
@@ -133,7 +132,7 @@ function List.bindContextMenuSelected(list, contextMenu)
         end
 
         list.Instance.ChildAdded:Connect(function(instance)
-            instance.Activated:Connect(showContextMenu)
+            instance.MouseButton2Click:Connect(showContextMenu)
         end)
 
         list.BoundContextMenuSelected = contextMenu
