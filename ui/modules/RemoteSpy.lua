@@ -406,6 +406,7 @@ function ArgsLog.new(log, callInfo)
 
     --button:SetRightCallback(function()
     button:SetCallback(function()
+        print"SetCallback!"
         selected.args = callInfo.args
         selected.callingScript = callInfo.script
         selected.func = callInfo.func
