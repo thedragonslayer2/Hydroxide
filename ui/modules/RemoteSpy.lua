@@ -404,7 +404,8 @@ function ArgsLog.new(log, callInfo)
         end
     end
 
-    button:SetRightCallback(function()
+    --button:SetRightCallback(function()
+    button:SetCallback(function()
         selected.args = callInfo.args
         selected.callingScript = callInfo.script
         selected.func = callInfo.func
