@@ -66,7 +66,7 @@ function ListButton.new(instance, list)
         end
     end)
 
-    list:BindMouseHold(list, instance, nil, listButton)
+    list:BindMouseHold(instance, nil, listButton)
 
     listButton.List = list
     listButton.Instance = instance
@@ -155,7 +155,7 @@ function List.bindContextMenuSelected(list, contextMenu)
         end
 
         list.Instance.ChildAdded:Connect(function(instance)
-            list:BindMouseHold(list, instance ,showContextMenu)
+            list:BindMouseHold(instance, showContextMenu)
         end)
 
         list.BoundContextMenuSelected = contextMenu
