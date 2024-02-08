@@ -105,32 +105,30 @@ function List.recalculate(list)
 end
 
 function List.bindMouseHold(list, instance, callback, IsRight)
-    list.BoundMouseHold = list.BoundMouseHold or {}
-    if not table.find(list.BoundMouseHold, instance) then
-        local MouseBeingHeldDown, startTime
-
-        instance.MouseButton1Down:Connect(function()
-            MouseBeingHeldDown, startTime = true, time()
-
-            while MouseBeingHeldDown and (time() - startTime < 1.5) do
-                wait()
-            end
-
-            if MouseBeingHeldDown and (time() - startTime >= 1.5) then
-                if IsRight and IsRight.RightCallback and not ctrlHeld then
-                    IsRight.RightCallback()
-                elseif callback then
-                    callback()
-                end
-            end
-        end)
-
-        instance.MouseButton1Up:Connect(function()
-            MouseBeingHeldDown = false
-        end)
-        
-        table.insert(list.BoundMouseHold, instance)
+    if IsRight then
+        print"Function Added"
     end
+    local MouseBeingHeldDown, startTime
+
+    instance.MouseButton1Down:Connect(function()
+        MouseBeingHeldDown, startTime = true, time()
+
+        while MouseBeingHeldDown and (time() - startTime < 1.5) do
+            wait()
+        end
+
+        if MouseBeingHeldDown and (time() - startTime >= 1.5) then
+            if IsRight and IsRight.RightCallback and not ctrlHeld then
+                IsRight.RightCallback()
+            elseif callback then
+                callback()
+            end
+        end
+    end)
+
+    instance.MouseButton1Up:Connect(function()
+        MouseBeingHeldDown = false
+    end)
 end
 
 function List.bindContextMenu(list, contextMenu)
