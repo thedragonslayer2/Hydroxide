@@ -109,7 +109,8 @@ function List.bindMouseHold(list, instance, callback, IsRight)
         local MouseBeingHeldDown, startTime
 
         instance.MouseButton1Down:Connect(function()
-            MouseBeingHeldDown,startTime = true,time()
+            print("Pressed")
+            MouseBeingHeldDown, startTime = true, time()
 
             while MouseBeingHeldDown and (time() - startTime < 1.5) do
                 wait()
@@ -127,6 +128,7 @@ function List.bindMouseHold(list, instance, callback, IsRight)
         instance.MouseButton1Up:Connect(function()
             MouseBeingHeldDown = false
         end)
+        list.BoundMouseHold = instance
     end
 end
 
