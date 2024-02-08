@@ -105,9 +105,6 @@ function List.recalculate(list)
 end
 
 function List.bindMouseHold(list, instance, callback, IsRight)
-    if IsRight then
-        print"Function Added"
-    end
     local MouseBeingHeldDown, startTime
 
     instance.MouseButton1Down:Connect(function()
