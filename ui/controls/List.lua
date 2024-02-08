@@ -23,6 +23,7 @@ function List.new(instance, multiClick)
     list.Recalculate = List.recalculate
     list.BindContextMenu = List.bindContextMenu
     list.BindContextMenuSelected = List.bindContextMenuSelected
+    list.BindMouseHold = List.bindMouseHold
     list.MultiClickEnabled = multiClick
 
     table.insert(lists, list)
@@ -65,11 +66,7 @@ function ListButton.new(instance, list)
         end
     end)
 
-    instance.MouseButton2Click:Connect(function()
-        if not ctrlHeld and listButton.RightCallback then
-            listButton.RightCallback()
-        end
-    end)
+    list:BindMouseHold(list, instance, nil, listButton)
 
     listButton.List = list
     listButton.Instance = instance
@@ -107,6 +104,32 @@ function List.recalculate(list)
     list.Instance.CanvasSize = UDim2.new(0, 0, 0, newHeight)
 end
 
+function List.bindMouseHold(list, instance, callback, IsRight)
+    if not list.BoundMouseHold then
+        local MouseBeingHeldDown, startTime
+
+        instance.MouseButton1Down:Connect(function()
+            MouseBeingHeldDown,startTime = true,time()
+
+            while MouseBeingHeldDown and (time() - startTime > 1.5) do
+                wait()
+            end
+
+            if MouseBeingHeldDown and (time() - startTime > 1.5) and (callback or IsRight) then
+                if IsRight then
+                    IsRight.RightCallback()
+                else
+                    callback()
+                end
+            end
+        end)
+
+        instance.MouseButton1Up:Connect(function()
+            MouseBeingHeldDown = false
+        end)
+    end
+end
+
 function List.bindContextMenu(list, contextMenu)
     if not list.BoundContextMenu then
         local function showContextMenu()
@@ -132,8 +155,7 @@ function List.bindContextMenuSelected(list, contextMenu)
         end
 
         list.Instance.ChildAdded:Connect(function(instance)
-            instance.MouseButton1Click:Connect(showContextMenu)
-            --instance.MouseButton2Click:Connect(showContextMenu)
+            list:BindMouseHold(list, instance ,showContextMenu)
         end)
 
         list.BoundContextMenuSelected = contextMenu
