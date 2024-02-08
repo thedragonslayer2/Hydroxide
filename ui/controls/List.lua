@@ -105,7 +105,8 @@ function List.recalculate(list)
 end
 
 function List.bindMouseHold(list, instance, callback, IsRight)
-    if not list.BoundMouseHold then
+    list.BoundMouseHold = list.BoundMouseHold or {}
+    if not table.find(list.BoundMouseHold, instance) then
         local MouseBeingHeldDown, startTime
 
         instance.MouseButton1Down:Connect(function()
@@ -128,7 +129,7 @@ function List.bindMouseHold(list, instance, callback, IsRight)
             MouseBeingHeldDown = false
         end)
         
-        list.BoundMouseHold = instance
+        table.insert(list.BoundMouseHold, instance)
     end
 end
 
