@@ -189,7 +189,7 @@ if readFile and writeFile then
     local hasFolderFunctions = (isFolder and makeFolder) ~= nil
     local ran, result = pcall(readFile, "__oh_version.txt")
 
-    if not ran  then
+    if not ran or true then
         if hasFolderFunctions then
             local function createFolder(path)
                 if not isFolder(path) then
