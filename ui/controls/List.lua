@@ -111,11 +111,11 @@ function List.bindMouseHold(list, instance, callback, IsRight)
         instance.MouseButton1Down:Connect(function()
             MouseBeingHeldDown,startTime = true,time()
 
-            while MouseBeingHeldDown and (time() - startTime > 1.5) do
+            while MouseBeingHeldDown and (time() - startTime < 1.5) do
                 wait()
             end
 
-            if MouseBeingHeldDown and (time() - startTime > 1.5) and (callback or IsRight) then
+            if MouseBeingHeldDown and (time() - startTime >= 1.5) and (callback or IsRight) then
                 if IsRight then
                     IsRight.RightCallback()
                 else
