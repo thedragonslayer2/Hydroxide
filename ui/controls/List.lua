@@ -141,7 +141,7 @@ function List.bindContextMenu(list, contextMenu)
         end
 
         list.Instance.ChildAdded:Connect(function(instance)
-            instance.MouseButton1Click:Connect(showContextMenu)
+            list:BindMouseHold(instance, showContextMenu)
         end)
 
         list.BoundContextMenu = contextMenu
