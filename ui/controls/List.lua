@@ -109,7 +109,6 @@ function List.bindMouseHold(list, instance, callback, IsRight)
         local MouseBeingHeldDown, startTime
 
         instance.MouseButton1Down:Connect(function()
-            print("Pressed")
             MouseBeingHeldDown, startTime = true, time()
 
             while MouseBeingHeldDown and (time() - startTime < 1.5) do
@@ -117,6 +116,7 @@ function List.bindMouseHold(list, instance, callback, IsRight)
             end
 
             if MouseBeingHeldDown and (time() - startTime >= 1.5) and (callback or IsRight) then
+                print("Function called", time() - startTime >= 1.5)
                 if IsRight then
                     IsRight.RightCallback()
                 else
