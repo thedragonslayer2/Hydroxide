@@ -32,8 +32,6 @@ function ContextMenuButton.new(icon, text)
     instance.MouseButton1Click:Connect(function()
         if contextMenuButton.Callback then
             contextMenuButton.Callback()
-            currentContextMenu:Hide()
-            currentContextMenu = nil
         end
     end)
 
@@ -124,9 +122,9 @@ function ContextMenu.hide(contextMenu)
     contextMenu.Instance.Visible = false
 end
 
-UserInput.InputEnded:Connect(function(input)
-    if currentContextMenu and (input.UserInputType == Enum.UserInputType.MouseButton1) then
-        currentContextMenu:Hide()
+UserInput.InputBegan:Connect(function(input)
+    if currentContextMenu and (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
+        currentContextMenu:Hide(task.wait(0.025))
         currentContextMenu = nil
     end
 end)
