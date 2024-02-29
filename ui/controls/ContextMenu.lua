@@ -124,7 +124,7 @@ end
 
 UserInput.InputBegan:Connect(function(input)
     if currentContextMenu and (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
-        currentContextMenu:Hide(task.wait(0.025))
+        currentContextMenu:Hide(task.wait(0.25))
         currentContextMenu = nil
     end
 end)
